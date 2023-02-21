@@ -15,7 +15,6 @@ class Knot
   end
 end
 
-
 rope = Array.new(10) { Knot.new }
 
 def clear_display
@@ -76,7 +75,6 @@ input.lines do |i|
     end
   end
 end
-
 
 #find the tiles
 total = 0
