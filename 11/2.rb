@@ -1,3 +1,4 @@
+$lcm = 9699690
 class Monkey
   attr_accessor :items
   attr_accessor :total_count
@@ -22,18 +23,18 @@ class Monkey
 
       case @op
       when :add
-        x = x + @amt
+        x = (x + @amt) % $lcm
       when :mult
-        x = x * @amt
+        x = (x * @amt) % $lcm
       when :square
-        x = x * x
+        x = (x * x) % $lcm
       end
 
-      # x = x / 3
+      #x = x / 3
 
-      if (x % @div == 0) and @target_t != nil
+      if x % @div == 0
         @target_t.items.push(x)
-      elsif (x % @div != 0) and @target_f != nil
+      else 
         @target_f.items.push(x)
       end
 
@@ -66,12 +67,7 @@ monkeys[7].get_targets(monkeys[3], monkeys[5])
 #now do logic:
 
 for i in 1..10000 do
-  puts i
-  monkeys.each { |j|
-    j.send
-  }
+  monkeys.each { |i| i.send }
 end
 
-monkeys.each { |i|
-  puts i.total_count
-}
+monkeys.each { |i| puts i.total_count }
