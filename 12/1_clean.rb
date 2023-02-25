@@ -1,11 +1,5 @@
-#require 'pry-byebug'
-
-out = File.new("output.txt", "w")
-
 class Node
   attr_accessor :_x, :_y, :fcost, :height, :gcost, :parent
-  #debug order display
-  attr_accessor :order
 
   def initialize(x, y, height)
     @_x = x
@@ -24,7 +18,6 @@ end
 
 #initialize things
 input = File.new("input.txt").read.split("\n").map { |i| i.split "" }
-#input = File.new("testinput.txt").read.split("\n").map { |i| i.split "" }
 $inp = Array.new(input.length) { Array.new(input[0].length)}
 input.each_with_index do |arr, i|
   arr.each_with_index do |element, j|
@@ -38,10 +31,7 @@ input.each_with_index do |arr, i|
     else
       $inp[i][j] = Node.new(j, i, element.ord)
     end
-    #print $inp[i][j].height.chr
   end
-  #print " #{i}"
-  #gets
 end
 
 $start.parent = :start
@@ -55,32 +45,16 @@ $height = $inp.length - 1
 open = [$start]
 closed = []
 
-#help
-#loop
-order = 0
 loop do
-  order += 1
   open.sort_by!(&:fcost).reverse
-=begin
-  open.each {|i|
-    print "#{i.fcost} "
-  }
-=end
   cur = open.shift
-  cur.order = order
   closed.push cur
-  p cur.height.chr
 
-  if order == 8
-    #binding.pry
-  end
   if cur == $target
     break
   end
 
-
   [[cur._x - 1, cur._y], [cur._x + 1, cur._y], [cur._x, cur._y - 1], [cur._x, cur._y + 1]].each do |j, i|
-    print "--- x: #{j} / y: #{i}\n"
     if j<0 || j > $length || i < 0 || i > $height
       next
     end
@@ -98,23 +72,7 @@ loop do
         this.calc
       end
     end
-
-    #p this
-
   end
 end
 
 print "#{$target.gcost} - distance\n"
-
-$inp.each do |i|
-  i.each do |j|
-    #real input debug display
-    #(j.gcost == nil) ? (out << "nil") : (out << "%03d" % [j.gcost])
-    #test input display
-    (j.gcost == nil) ? (out << "nil") : (out << "%03d" % [j.gcost])
-    #order display
-    #(j.order == nil) ? (out << "ZZZ") : (out << "%03d" % [j.order])
-
-  end
-  out << "\n"
-end
