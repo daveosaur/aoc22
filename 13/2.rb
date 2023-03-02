@@ -39,11 +39,11 @@ def compare(x, y)
   return nil
 end
 
-def sorty(a, b)
+def sorty(a, b) #lol compare has wrong return types. this is the adapter function
   compare(b, a) ? 1 : -1
 end
 
-a = [[2]]
+a = [[2]] #add the keys
 b = [[6]]
 
 sorted = input.push(a).push(b).sort {|a, b| sorty(a, b)}
